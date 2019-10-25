@@ -1,0 +1,7 @@
+Número de linhas: 3
+Número de colunas: 3
+Número de elementos não nulos: 9
+
+1.000 2.000 3.000
+4.000 5.000 6.000
+7.000 8.000 9.000
