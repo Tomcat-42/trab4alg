@@ -105,8 +105,15 @@
 
 * **void sort_emprestimo()**:Análoga as funções de ordenação dos outros módulos, porém vai ordenar o arquivo de empréstimo por títulos.
 
-* **void mudar_status_usuario(int matricula)**: Vai procurar a struct do usuário com esta matricula e mudar seu status.
+* **void mudar_status_usuario(int matricula, int tipo, struct tm dia)**: Vai procurar a struct do usuário com esta matricula e mudar seu status.Se tipo for = 1 a função vai suspender o usúario e mudar sua data de suspenção para 30 dias após 'dia', se não vai só mudar o status.
 
 * **void mudar_status_livro(int codigo)**: Vai procurar a struct do livro com esse codigo e mudar seu status.
 
-* **int emprestar()**: Vai ler a matricula do usuario e buscar com a função busca_generica_usuario() e armazenar em uma struct.Se o usuário estiver suspenso e o termino da suspensão não tiver chegado, a função printa o resultado e retorna 1.Se o usuario estiver suspenso e a data de suspensão tiver passado, chamar a função mudar_status_usuario() 
+* **struct tm ultimo_emprestimo(struct usuario *u)**: Vai procurar no arquivo de emprestimos os *n* livros emprestados pelo usuário e retornar a data de devolução do mais recente
+
+* **int emprestar()**: Vai ler a matricula do usuario e buscar com a função busca_generica_usuario() e armazenar em uma struct, também vai chamar a função ultimo_emprestimo() e armazenar.Se o usuário estiver suspenso e o termino da suspensão não tiver chegado, a função printa o resultado e retorna 1.Se o usuario estiver suspenso e a data de suspensão tiver passado, chamar a função mudar_status_usuario().Se o usuario não estiver suspenso checar a data do ultimo emprestimo com a data atual, e se tiver um atraso suspendê-lo e retornar 1.Também checar numero máximo de empréstimos, se for 4 retornar 1.
+	Se o usuário não estiver suspenso, chamar a função busca_generica_obra() e checar se o livro existe e está disponível, se não retorna 1.Após isso inserir uma struct de emprestimo no arquivo, mudar a situação do livro para emprestado, incrementar o numero de volumes do usuário.
+
+* **int devolver()**: Vai ler o código do livro e verificar se ele existe, se não existir retornar 1.Procurar no arquivo de empréstimos a struct do empréstimo e atualizar a situação do livro e o número de livros que o usuário tem.Verificar a data de devolução, se for depois da data máxima suspender o usuário.Após isso copiar todas as structs de emprestimos que não seja a devolvida para um novo arquivo e renomeá-lo.
+
+* **int relatorio()**:Vai printar todas as structs no arquivo(vão estar ordenadas por título).
