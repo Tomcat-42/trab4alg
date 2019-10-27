@@ -56,4 +56,7 @@ int consultar_usuario();
 /*Apaga um usuário na base de dados*/
 int apagar_usuario();
 
+/*imprime todos os usários no arquivo*/
+int list_usuario();
+
 #endif
