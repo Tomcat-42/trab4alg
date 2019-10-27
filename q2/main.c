@@ -54,37 +54,36 @@ int main()
 				{
 					case 1:
 						if(!cadastrar_usuario())
-							printf("Usuário cadastrado com sucesso!\n");
+							printf("\nUsuário cadastrado com sucesso!\n");
 						else
-							printf("Erro no cadastro do usuário!\n");
+							printf("\nErro no cadastro do usuário!\n");
 						printf("\nPressione [ENTER] para retornar ao menu ");
 						while(getchar()!='\n');
 						break;
 					case 2:
 						if(!atualizar_cadastro())
-							printf("Cadastro atualizado com sucesso!\n");
+							printf("\nCadastro atualizado com sucesso!\n");
 						else
-							printf("Erro na atualização do cadastro!\n");
+							printf("\nErro na atualização do cadastro!\n");
 						printf("\nPressione [ENTER] para retornar ao menu ");
-						getchar();
 						while(getchar()!='\n');
 						break;
 					case 3:
 						if(!consultar_usuario())
-							printf("Cadastro consultado com sucesso!\n");
+							printf("\nCadastro consultado com sucesso!\n");
 						else
-							printf("Erro na consulta do cadastro!\n");
+							printf("\nErro na consulta do cadastro!\n");
+						list_usuario();
 						printf("\nPressione [ENTER] para retornar ao menu ");
 						getchar();
 						while(getchar()!='\n');
 						break;
 					case 4:
 						if(!apagar_usuario())
-							printf("Usuário deletado com sucesso!\n");
+							printf("\nUsuário deletado com sucesso!\n");
 						else
-							printf("Erro ao deletar o usuário!\n");
+							printf("\nErro ao deletar o usuário!\n");
 						printf("\nPressione [ENTER] para retornar ao menu ");
-						getchar();
 						while(getchar()!='\n');
 						break;
 					default:
@@ -107,36 +106,36 @@ int main()
 				{
 					case 1:
 						if(!cadastrar_livro())
-							printf("Livro cadastrado com sucesso!\n");
+							printf("\nLivro cadastrado com sucesso!\n");
 						else
-							printf("Erro no cadastro do livro!\n");
+							printf("\nErro no cadastro do livro!\n");
 						printf("\nPressione [ENTER] para retornar ao menu ");
 						getchar();
 						while(getchar()!='\n');
 						break;
 					case 2:
 						if(!alterar_status())
-							printf("Status alterado com sucesso!\n");
+							printf("\nStatus alterado com sucesso!\n");
 						else
-							printf("Erro na alteração do status!\n");
+							printf("\nErro na alteração do status!\n");
 						printf("\nPressione [ENTER] para retornar ao menu ");
 						getchar();
 						while(getchar()!='\n');
 						break;
 					case 3:
 						if(!consultar_livro())
-							printf("Livro consultado com sucesso!\n");
+							printf("\nLivro consultado com sucesso!\n");
 						else
-							printf("Erro na consulta do livro!\n");
+							printf("\nErro na consulta do livro!\n");
 						printf("\nPressione [ENTER] para retornar ao menu ");
 						getchar();
 						while(getchar()!='\n');
 						break;
 					case 4:
 						if(!apagar_livro())
-							printf("Livro deletado com sucesso!\n");
+							printf("\nLivro deletado com sucesso!\n");
 						else
-							printf("Erro ao deletar o livro!\n");
+							printf("\nErro ao deletar o livro!\n");
 						printf("\nPressione [ENTER] para retornar ao menu ");
 						getchar();
 						while(getchar()!='\n');
@@ -158,27 +157,27 @@ int main()
 				{
 					case 1:
 						if(!emprestar())
-							printf("Livro emprestado com sucesso!\n");
+							printf("\nLivro emprestado com sucesso!\n");
 						else
-							printf("Erro no empréstimo do livro!\n");
+							printf("\nErro no empréstimo do livro!\n");
 						printf("\nPressione [ENTER] para retornar ao menu ");
 						getchar();
 						while(getchar()!='\n');
 						break;
 					case 2:
 						if(!devolver())
-							printf("Livro devolvido com sucesso!\n");
+							printf("\nLivro devolvido com sucesso!\n");
 						else
-							printf("Erro na devolução do livro!\n");
+							printf("\nErro na devolução do livro!\n");
 						printf("\nPressione [ENTER] para retornar ao menu ");
 						getchar();
 						while(getchar()!='\n');
 						break;
 					case 3:
 						if(!relatorio())
-							printf("Relatório impresso com sucesso!\n");
+							printf("\nRelatório impresso com sucesso!\n");
 						else
-							printf("Erro na impressão do relatório!\n");
+							printf("\nErro na impressão do relatório!\n");
 						printf("\nPressione [ENTER] para retornar ao menu ");
 						getchar();
 						while(getchar()!='\n');
