@@ -6,7 +6,11 @@
 #include <string.h>
 #include <time.h>
 
-#define LIVRO_FILENAME "./livros.dat"
+#ifdef __unix__
+#define LIVRO_FILENAME "modulo_livros/livros.dat"
+#elif
+#define LIVRO_FILENAME "modulo_livros\livros.dat"
+#endif
 
 /*Enum que representa o status do livro*/
 enum {DISP, EMPR, MANU} STATUS_LIVRO;
@@ -32,7 +36,7 @@ int busca_generica_livro(int codigo, Livro *livro);
 void sort_livro();
 
 /*Cadastra um livro no arquivo*/
-int cadastrar_obra();
+int cadastrar_livro();
 
 /*Muda o status de um livro*/
 int alterar_status();

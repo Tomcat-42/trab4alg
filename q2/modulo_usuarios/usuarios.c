@@ -7,8 +7,8 @@ int busca_repetido_usuario(int matricula, int rg, char *cpf)
 
 	FILE *fp;
 	
-	/*Tenta abrir o arquivo como ro*/
-	if( !(fp = fopen(USER_FILENAME, "rb") ) ) return -1;
+	/*Tenta abrir o arquivo*/
+	if( !(fp = fopen(USER_FILENAME, "wb+") ) ) return 0;
 
 	/*Vasculha todo o arquivo por uma entrada repetida*/
 	while(!feof(fp))
@@ -20,9 +20,13 @@ int busca_repetido_usuario(int matricula, int rg, char *cpf)
 			if( (matricula == aux.matricula) || 
 			    (rg == aux.rg) ||
 			    (!strcmp(cpf, aux.cpf)) )
+			{
+				fclose(fp);
 				return 1;
+			}
 		}
 	}
+	fclose(fp);
 	return 0;
 }
 
@@ -65,7 +69,11 @@ int busca_generica_usuario(int matricula, Usuario *user)
 	FILE *fp;
 	int i=0;
 
-	if( !(fp = fopen(USER_FILENAME, "rb")) ) return -1;
+	if( !(fp = fopen(USER_FILENAME, "rb")) )
+	{
+		printf("aaaaaaaaaaaaaaa\n");
+		return -1;
+	}
 
 	while( !feof(fp) )
 	{
@@ -92,22 +100,31 @@ int cadastrar_usuario()
 	scanf("%d", &new_user.matricula);
 	printf("digite o rg: ");
 	scanf("%d", &new_user.rg);
+	getchar();
 	printf("digite o cpf: ");
-	scanf("%s", new_user.cpf);
+	fgets(new_user.cpf, 13, stdin);
+	new_user.cpf[strlen(new_user.cpf -1)] = '\0';
 	printf("digite o nome: ");
-	scanf("%s", new_user.nome);
+	fgets(new_user.nome, 52, stdin);
+	new_user.nome[strlen(new_user.nome -1)] = '\0';
 	printf("digite o endereço: ");
-	scanf("%s", new_user.endereco);
+	fgets(new_user.endereco, 72, stdin);
+	new_user.endereco[strlen(new_user.endereco -1)] = '\0';
 	printf("digite a data de nascimento(DD/MM/AA): ");
 	scanf("%d/%d/%d", &new_user.nasc.tm_mday, &new_user.nasc.tm_mon, &new_user.nasc.tm_year);
+	getchar();
 	printf("digite o sexo(M/F): ");
 	scanf("%c", &new_user.sexo);
+	getchar();
 	printf("digite o bairro: ");
-	scanf("%s", new_user.bairro);
+	fgets(new_user.bairro, 32, stdin);
+	new_user.bairro[strlen(new_user.bairro -1)] = '\0';
 	printf("digite o telefone residencial(9 dígitos): ");
 	scanf("%d", &new_user.fone_red);
+	getchar();
 	printf("digite o telefone móvel(9 dígitos): ");
 	scanf("%d", &new_user.fone_cel);
+	getchar();
 	time(&agora);
 	new_user.adesao = *localtime(&agora);
 	new_user.status = NORM;
@@ -122,7 +139,7 @@ int cadastrar_usuario()
 	fclose(fp);
 	
 	/*Ordena o arquivo*/
-	sort_usuario();
+	//sort_usuario();
 
 	return 0;
 }
@@ -146,17 +163,21 @@ int atualizar_cadastro()
 	printf("digite o rg: ");
 	scanf("%d", &aux.rg);
 	printf("digite o cpf: ");
-	scanf("%s", aux.cpf);
+	fgets(aux.cpf, 13, stdin);
+	aux.cpf[strlen(aux.cpf -1)] = '\0';
 	printf("digite o nome: ");
-	scanf("%s", aux.nome);
+	fgets(aux.nome, 52, stdin);
+	aux.nome[strlen(aux.nome -1)] = '\0';
 	printf("digite o endereço: ");
-	scanf("%s", aux.endereco);
+	fgets(aux.endereco, 72, stdin);
+	aux.endereco[strlen(aux.endereco -1)] = '\0';
 	printf("digite a data de nascimento(DD/MM/AA): ");
 	scanf("%d/%d/%d", &aux.nasc.tm_mday, &aux.nasc.tm_mon, &aux.nasc.tm_year);
 	printf("digite o sexo(M/F): ");
 	scanf("%c", &aux.sexo);
 	printf("digite o bairro: ");
-	scanf("%s", aux.bairro);
+	fgets(aux.bairro, 32, stdin);
+	aux.bairro[strlen(aux.bairro -1)] = '\0';
 	printf("digite o telefone residencial(9 dígitos): ");
 	scanf("%d", &aux.fone_red);
 	printf("digite o telefone móvel(9 dígitos): ");
@@ -169,7 +190,7 @@ int atualizar_cadastro()
 	return 0;
 }
 
-int consultar_cadastro()
+int consultar_usuario()
 {
 	int matricula;
 	Usuario aux;

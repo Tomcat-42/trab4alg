@@ -1,12 +1,19 @@
-#include "./modulo_livros/livros.h"
+#ifdef __unix__
+#define CLEARCMD "clear"
 #include "./modulo_usuarios/usuarios.h"
-#include "./modulo_emprestimos/emprestimos.h"
+//#include "./modulo_emprestimos/emprestimos.h"
+//#include "./modulo_livros/livros.h"
+#elif
+#define CLEARCMD "cls"
+#include "modulo_usuarios\usuarios.h"
+//#include "modulo_emprestimos\emprestimos.h"
+//#include "modulo_livros\livros.h"
+#endif
 
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
 
-#define CLEARCMD "clear"
 
 int main()
 {
@@ -34,7 +41,7 @@ int main()
 		switch(menu0)
 		{
 			case 1:
-				printf("Cadasto de usuários:")
+				printf("Cadasto de usuários:\n");
 				printf( "\n0)Voltar" 
 					"\n1)Cadastrar novo usuário"
 					"\n2)Atualizar cadastro"
@@ -51,7 +58,6 @@ int main()
 						else
 							printf("Erro no cadastro do usuário!\n");
 						printf("\nPressione [ENTER] para retornar ao menu ");
-						getchar();
 						while(getchar()!='\n');
 						break;
 					case 2:
@@ -64,7 +70,7 @@ int main()
 						while(getchar()!='\n');
 						break;
 					case 3:
-						if(!consultar_cadastro())
+						if(!consultar_usuario())
 							printf("Cadastro consultado com sucesso!\n");
 						else
 							printf("Erro na consulta do cadastro!\n");
@@ -86,8 +92,9 @@ int main()
 
 				}
 				break;
+			/*
 			case 2:
-				printf("Cadasto de Obras:")
+				printf("Cadasto de Obras:");
 				printf( "\n0)Voltar" 
 					"\n1)Cadastrar nova obra"
 					"\n2)Alterar status"
@@ -139,11 +146,11 @@ int main()
 				}
 				break;
 			case 3:
-				printf("Empréstimos e Devoluções:")
+				printf("Empréstimos e Devoluções:");
 				printf( "\n0)Voltar" 
 					"\n1)Emprestar"
 					"\n2)Devolver"
-					"\n3)Relatório de Empréstimos"
+					"\n3)Relatório de Empréstimos");
 				printf("\n\n>>> ");
 				scanf("%d",&menu1);
 				system(CLEARCMD);
@@ -180,8 +187,9 @@ int main()
 						break;
 				}
 				break;
+				*/
 			default:
-				break;
+				return 0;
 		}
 	}
 	return 0;

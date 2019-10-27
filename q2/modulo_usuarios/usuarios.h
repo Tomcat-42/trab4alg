@@ -6,7 +6,11 @@
 #include <string.h>
 #include <time.h>
 
-#define USER_FILENAME "./usuario.dat"
+#ifdef __unix__
+#define USER_FILENAME "modulo_usuarios/usuarios.dat"
+#elif
+#define USER_FILENAME "modulo_usuarios\usuarios.dat"
+#endif
 
 /*Enum que representa o status do usuário*/
 enum {NORM, SUSP} STATUS_USER;

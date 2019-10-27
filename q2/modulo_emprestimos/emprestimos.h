@@ -6,10 +6,16 @@
 #include <string.h>
 #include <time.h>
 
+#ifdef __unix__
+#define EMPR_FILENAME "modulo_emprestimos/emprestimos.dat"
 #include "../modulo_livros/livros.h"
 #include "../modulo_usuarios/usuarios.h"
+#elif
+#define EMPR_FILENAME "modulo_emprestimos\emprestimos.dat"
+#include "..\modulo_livros\livros.h"
+#include "..\modulo_usuarios\usuarios.h"
+#endif
 
-#define EMPR_FILENAME "./emprestimos.dat"
 
 /*Estrutura de um empréstimo*/
 typedef struct
