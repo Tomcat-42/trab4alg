@@ -9,7 +9,7 @@
 #define USER_FILENAME "./usuario.dat"
 
 /*Enum que representa o status do usuário*/
-enum {NORM, SUSP} STATUS;
+enum {NORM, SUSP} STATUS_USER;
 
 /*Estrutura que representa um usuário*/
 typedef struct
