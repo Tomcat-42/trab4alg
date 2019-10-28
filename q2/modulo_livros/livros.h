@@ -47,4 +47,7 @@ int consultar_livro();
 /*Apaga um livro na base de dados*/
 int apagar_livro();
 
+/*Imprime todas as obras cadastradas*/
+int relatorio_livro();
+
 #endif

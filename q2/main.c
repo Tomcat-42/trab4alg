@@ -173,20 +173,55 @@ int main()
 						getchar();
 						while(getchar()!='\n');
 						break;
-					case 3:
-						if(!relatorio())
-							printf("\nRelatório impresso com sucesso!\n");
-						else
-							printf("\nErro na impressão do relatório!\n");
-						printf("\nPressione [ENTER] para retornar ao menu ");
-						getchar();
-						while(getchar()!='\n');
-						break;
 					default:
 						break;
 				}
 				break;
 				*/
+			case 4:
+				printf("Relatórios:\n");
+				printf( "\n0)Voltar" 
+					"\n1)Relatórios de usuários"
+					"\n2)Relatórios de livros"
+					"\n3)Relatórios de empréstimos");
+				printf("\n\n>>> ");
+				scanf("%d",&menu1);
+				system(CLEARCMD);
+				switch(menu1)
+				{
+					case 1:
+						if(!relatorio_usuario())
+							printf("\nRelatório impresso com sucesso!\n");
+						else
+							printf("\nErro ao imprimir relatório!\n");
+						printf("\nPressione [ENTER] para retornar ao menu ");
+						getchar();
+						while(getchar()!='\n');
+						break;
+					/*
+					case 2:
+						if(!relatorio_livro())
+							printf("\nRelatório impresso com sucesso!\n");
+						else
+							printf("\nErro ao imprimir relatório!\n");
+						printf("\nPressione [ENTER] para retornar ao menu ");
+						getchar();
+						while(getchar()!='\n');
+						break;
+					case 3:
+						if(!relatorio_emprestimo())
+							printf("\nRelatório impresso com sucesso!\n");
+						else
+							printf("\nErro ao imprimir relatório!\n");
+						printf("\nPressione [ENTER] para retornar ao menu ");
+						getchar();
+						while(getchar()!='\n');
+						break;
+					*/
+					default:
+						break;
+				}
+				break;
 			default:
 				return 0;
 		}

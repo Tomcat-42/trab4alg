@@ -8,8 +8,10 @@
 
 #ifdef __unix__
 #define USER_FILENAME "modulo_usuarios/usuarios.dat"
+#define PATH_REL "relatorios/"
 #elif
-#define USER_FILENAME "modulo_usuarios\usuarios.dat"
+#define USER_FILENAME "modulo_usuarios\\usuarios.dat"
+#define PATH_REL "relatorios\\"
 #endif
 
 /*Enum que representa o status do usuário*/
@@ -57,6 +59,6 @@ int consultar_usuario();
 int apagar_usuario();
 
 /*imprime todos os usários no arquivo*/
-int list_usuario();
+int relatorio_usuario();
 
 #endif

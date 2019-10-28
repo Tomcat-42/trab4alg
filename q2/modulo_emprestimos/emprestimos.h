@@ -44,6 +44,6 @@ int emprestar();
 int devolver();
 
 /*Printa um relatório de empréstimos para um arquivo de texto*/
-int relatorio();
+int relatorio_emprestimo();
 
 #endif

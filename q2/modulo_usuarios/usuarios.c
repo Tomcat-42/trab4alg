@@ -266,38 +266,73 @@ int apagar_usuario()
 	return 0;
 }
 
-int list_usuario()
+int relatorio_usuario()
 {
 	/*variável que armazenará cada usuario na busca*/
 	Usuario aux;
-
-	FILE *fp;
+	char filename[51], filepath[51];
+	FILE *fp,*stream;
+	time_t agr;
+	struct tm tempo;
+	int menu;
 	
 	/*Tenta abrir o arquivo*/
 	if( !(fp = fopen(USER_FILENAME, "rb") ) ) return 1;
+	
+	time(&agr);
+	tempo = *localtime(&agr);
+	printf("1)Tela\n2)Arquivo\n\n>>> ");
+	scanf("%d", &menu);
 
-	/*Vasculha todo o arquivo por uma entrada repetida*/
+	if(menu==1)
+	{
+		stream = stdout;
+	}
+	else if(menu == 2)
+	{
+		sprintf(filename, "Relatorio_usuarios_%02d-%02d-%02d@%02d:%02d.txt", 
+				tempo.tm_mday,
+				tempo.tm_mon+1, 
+				tempo.tm_year+1900,
+				tempo.tm_hour,
+				tempo.tm_min);
+
+		strcat(filepath, PATH_REL);
+		strcat(filepath, filename);
+
+		if( !(stream = fopen(filepath, "w") ) ) return 1;
+	}
+	else
+		return 1;
+
+	fprintf(stream, "Relatório de usuários cadastrados:\nData: %02d/%02d/%02d @ %02d:%02d\n\n",
+			tempo.tm_mday,
+			tempo.tm_mon+1, 
+			tempo.tm_year+1900,
+			tempo.tm_hour,
+			tempo.tm_min);
+	
 	while(!feof(fp))
 	{
 		fread(&aux, sizeof(Usuario), 1, fp);
 		if(!feof(fp))
 		{
-			printf("\nmatrícula: %d\n", aux.matricula);
-			printf("rg: %d\n", aux.rg);
-			printf("cpf: %s\n", aux.cpf);
-			printf("nome: %s\n", aux.nome);
-			printf("endereço: %s\n", aux.endereco);
-			printf("data de nascimento: %02d/%02d/%d\n", aux.nasc.tm_mday, aux.nasc.tm_mon+1, aux.nasc.tm_year+1900);
-			printf("sexo: %c\n", aux.sexo);
-			printf("bairro: %s\n", aux.bairro);
-			printf("telefone residencial: %d\n", aux.fone_red);
-			printf("telefone móvel: %d\n", aux.fone_cel);
-			printf("data de adesão: %02d/%02d/%d\n", aux.adesao.tm_mday, aux.adesao.tm_mon+1, aux.adesao.tm_year+1900);
-			printf("status: %s\n", (aux.status) ? ("SUSPENSO"): ("NORMAL"));
-			if(aux.status) printf("término da suspensão: %d/%d/%d\n", aux.term_susp.tm_mday, aux.term_susp.tm_mon+1, aux.term_susp.tm_year+1900);
-			printf("volumes emprestados: %d\n", aux.num_emprest);	
+			fprintf(stream, "\nmatrícula: %d\n", aux.matricula);
+			fprintf(stream, "rg: %d\n", aux.rg);
+			fprintf(stream, "cpf: %s\n", aux.cpf);
+			fprintf(stream, "nome: %s\n", aux.nome);
+			fprintf(stream, "endereço: %s\n", aux.endereco);
+			fprintf(stream, "data de nascimento: %02d/%02d/%d\n", aux.nasc.tm_mday, aux.nasc.tm_mon+1, aux.nasc.tm_year+1900);
+			fprintf(stream, "sexo: %c\n", aux.sexo);
+			fprintf(stream, "bairro: %s\n", aux.bairro);
+			fprintf(stream, "telefone residencial: %d\n", aux.fone_red);
+			fprintf(stream, "telefone móvel: %d\n", aux.fone_cel);
+			fprintf(stream, "data de adesão: %02d/%02d/%d\n", aux.adesao.tm_mday, aux.adesao.tm_mon+1, aux.adesao.tm_year+1900);
+			fprintf(stream, "status: %s\n", (aux.status) ? ("SUSPENSO"): ("NORMAL"));
+			if(aux.status) fprintf(stream, "término da suspensão: %d/%d/%d\n", aux.term_susp.tm_mday, aux.term_susp.tm_mon+1, aux.term_susp.tm_year+1900);
+			fprintf(stream, "volumes emprestados: %d\n", aux.num_emprest);	
 		}
-		printf("\n");
+		fprintf(stream, "\n");
 	}
 	fclose(fp);
 	return 0;
