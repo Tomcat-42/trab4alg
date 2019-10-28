@@ -73,7 +73,6 @@ int main()
 							printf("\nCadastro consultado com sucesso!\n");
 						else
 							printf("\nErro na consulta do cadastro!\n");
-						list_usuario();
 						printf("\nPressione [ENTER] para retornar ao menu ");
 						getchar();
 						while(getchar()!='\n');
@@ -84,6 +83,7 @@ int main()
 						else
 							printf("\nErro ao deletar o usuário!\n");
 						printf("\nPressione [ENTER] para retornar ao menu ");
+						getchar();
 						while(getchar()!='\n');
 						break;
 					default:
