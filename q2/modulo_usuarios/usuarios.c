@@ -8,7 +8,7 @@ int busca_repetido_usuario(int matricula, int rg, char *cpf)
 	FILE *fp;
 	
 	/*Tenta abrir o arquivo*/
-	if( !(fp = fopen(USER_FILENAME, "rb") ) ) return 1;
+	if( !(fp = fopen(USER_FILENAME, "rb") ) ) return 0;
 
 	/*Vasculha todo o arquivo por uma entrada repetida*/
 	while(!feof(fp))
@@ -50,12 +50,12 @@ void sort_usuario()
 	{
 		fread(&aux0, sizeof(Usuario), 1, fp);
 		fread(&aux1, sizeof(Usuario), 1, fp);
-		if(aux0.matricula < aux1.matricula)
+		if(aux0.matricula > aux1.matricula)
 		{
 			fseek(fp, -(2*sizeof(Usuario)), SEEK_CUR);
 			fwrite(&aux1, sizeof(Usuario), 1, fp);
 			fwrite(&aux0, sizeof(Usuario), 1, fp);
-			fseek(fp, -((2*sizeof(Usuario)) + i), SEEK_END);
+			fseek(fp, -((2*sizeof(Usuario)) + (i*sizeof(Usuario))), SEEK_END);
 			
 		}
 		else/*O o último ddo está no local correto*/
@@ -64,6 +64,8 @@ void sort_usuario()
 			return;
 		}
 	}
+	fclose(fp);
+	return;
 }
 
 int busca_generica_usuario(int matricula, Usuario *user)
@@ -137,7 +139,7 @@ int cadastrar_usuario()
 	if( busca_repetido_usuario(new_user.matricula, new_user.rg, new_user.cpf) ) return 1;
 	
 	/*Checa por erros ao abrir o arquivo*/
-	if( !(fp = fopen(USER_FILENAME, "ab"))) return 1;
+	if( !(fp = fopen(USER_FILENAME, "ab+"))) return 1;
 
 	/*Escreve no arquivo*/
 	fwrite(&new_user, sizeof(Usuario), 1, fp);
@@ -263,7 +265,8 @@ int apagar_usuario()
 	
 	return 0;
 }
- int list_usuario()
+
+int list_usuario()
 {
 	/*variável que armazenará cada usuario na busca*/
 	Usuario aux;
