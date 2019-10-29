@@ -8,8 +8,10 @@
 
 #ifdef __unix__
 #define LIVRO_FILENAME "modulo_livros/livros.dat"
+#define PATH_REL "relatorios/"
 #elif
-#define LIVRO_FILENAME "modulo_livros\livros.dat"
+#define LIVRO_FILENAME "modulo_livros\\livros.dat"
+#define PATH_REL "relatorios\\"
 #endif
 
 /*Enum que representa o status do livro*/
@@ -29,7 +31,7 @@ typedef struct
 	int status;
 }Livro;
 
-/*vai buscar o usuario e gravar na struct *user, além disso vai retornar a posição dele no arquivo(lembrar de voltar o ponteiro de arquivo dps de ler)*/
+/*vai buscar o livro e gravar na struct *livro, além disso vai retornar a posição dele no arquivo*/
 int busca_generica_livro(int codigo, Livro *livro);
 
 /*Pega a última entrada e insere no local correto*/
@@ -39,7 +41,7 @@ void sort_livro();
 int cadastrar_livro();
 
 /*Muda o status de um livro*/
-int alterar_status();
+int alterar_status_livro();
 
 /*Consulta um livro na base de dados*/
 int consultar_livro();
