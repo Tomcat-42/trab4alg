@@ -170,7 +170,8 @@ int consultar_livro()
 	Livro aux;
 	
 	printf("Digite o título: ");
-	scanf("%s", titulo);
+	fgets(titulo, 81, stdin);
+	titulo[strlen(titulo) -1] = '\0';
 
 	/*Procura no arquivo por aquela matricula*/
 	if( (busca_titulo_livro(titulo, &aux))<0 ) return 1;
