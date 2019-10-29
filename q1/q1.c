@@ -105,7 +105,6 @@ int main()
 	{
 		system(CLEARCMD);
 		printf("Calculadora de Matrizes:\n");
-			system(CLEARCMD);
 		printf( "\n0)Sair" 
 			"\n1)Definir uma Matriz"
 			"\n2)Inserir uma elemento em uma Matriz(já definida)"
