@@ -43,7 +43,7 @@ int busca_repetido_usuario(int matricula, int rg, char *cpf);
 /*Pega a última entrada e insere no local correto*/
 void sort_usuario();
 
-/*vai buscar o usuario e gravar na struct *user, além disso vai retornar a posição dele no arquivo(lembrar de voltar o ponteiro de arquivo dps de ler)*/
+/*vai buscar o usuario e gravar na struct *user, além disso vai retornar a posição dele no arquivo*/
 int busca_generica_usuario(int matricula, Usuario *user);
 
 /*Cadastra um usuário no arquivo*/

@@ -42,7 +42,6 @@ void sort_usuario()
 	/*Calcula o número de strucs do arquivo*/
 	fseek(fp, 0, SEEK_END);
 	tam = (int)ftell(fp)/(int)sizeof(Usuario);
-	printf("%d\n",tam);
 
 	/*Move o ponteiro para a penúltima struct no arquivo do arquivo*/
 	fseek(fp, -(2*sizeof(Usuario)), SEEK_END);
@@ -256,7 +255,7 @@ int apagar_usuario()
 	{
 		fread(&aux, sizeof(Usuario), 1, fp_old);
 		if(!feof(fp_old) && aux.matricula != matricula)
-			fwrite(&aux, sizeof(aux), 1, fp_new);
+			fwrite(&aux, sizeof(Usuario), 1, fp_new);
 
 	}
 	fclose(fp_old);
