@@ -9,7 +9,7 @@
 #ifdef __unix__
 #define LIVRO_FILENAME "modulo_livros/livros.dat"
 #define PATH_REL "relatorios/"
-#elif
+#else
 #define LIVRO_FILENAME "modulo_livros\\livros.dat"
 #define PATH_REL "relatorios\\"
 #endif

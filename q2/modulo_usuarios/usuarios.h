@@ -9,7 +9,7 @@
 #ifdef __unix__
 #define USER_FILENAME "modulo_usuarios/usuarios.dat"
 #define PATH_REL "relatorios/"
-#elif
+#else
 #define USER_FILENAME "modulo_usuarios\\usuarios.dat"
 #define PATH_REL "relatorios\\"
 #endif

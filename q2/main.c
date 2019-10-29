@@ -3,7 +3,7 @@
 #include "./modulo_usuarios/usuarios.h"
 //#include "./modulo_emprestimos/emprestimos.h"
 #include "./modulo_livros/livros.h"
-#elif
+#else
 #define CLEARCMD "cls"
 #include "modulo_usuarios\usuarios.h"
 //#include "modulo_emprestimos\emprestimos.h"

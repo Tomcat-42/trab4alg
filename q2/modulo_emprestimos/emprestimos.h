@@ -10,7 +10,7 @@
 #define EMPR_FILENAME "modulo_emprestimos/emprestimos.dat"
 #include "../modulo_livros/livros.h"
 #include "../modulo_usuarios/usuarios.h"
-#elif
+#else
 #define EMPR_FILENAME "modulo_emprestimos\emprestimos.dat"
 #include "..\modulo_livros\livros.h"
 #include "..\modulo_usuarios\usuarios.h"
