@@ -2,12 +2,12 @@
 #define CLEARCMD "clear"
 #include "./modulo_usuarios/usuarios.h"
 //#include "./modulo_emprestimos/emprestimos.h"
-//#include "./modulo_livros/livros.h"
+#include "./modulo_livros/livros.h"
 #elif
 #define CLEARCMD "cls"
 #include "modulo_usuarios\usuarios.h"
 //#include "modulo_emprestimos\emprestimos.h"
-//#include "modulo_livros\livros.h"
+#include "modulo_livros\livros.h"
 #endif
 
 #include <stdio.h>
@@ -91,9 +91,8 @@ int main()
 
 				}
 				break;
-			/*
 			case 2:
-				printf("Cadasto de Obras:");
+				printf("Cadasto de Obras:\n");
 				printf( "\n0)Voltar" 
 					"\n1)Cadastrar nova obra"
 					"\n2)Alterar status"
@@ -114,7 +113,7 @@ int main()
 						while(getchar()!='\n');
 						break;
 					case 2:
-						if(!alterar_status())
+						if(!alterar_status_livro())
 							printf("\nStatus alterado com sucesso!\n");
 						else
 							printf("\nErro na alteração do status!\n");
@@ -144,6 +143,7 @@ int main()
 						break;
 				}
 				break;
+			/*
 			case 3:
 				printf("Empréstimos e Devoluções:");
 				printf( "\n0)Voltar" 
@@ -198,7 +198,6 @@ int main()
 						getchar();
 						while(getchar()!='\n');
 						break;
-					/*
 					case 2:
 						if(!relatorio_livro())
 							printf("\nRelatório impresso com sucesso!\n");
@@ -208,6 +207,7 @@ int main()
 						getchar();
 						while(getchar()!='\n');
 						break;
+					/*
 					case 3:
 						if(!relatorio_emprestimo())
 							printf("\nRelatório impresso com sucesso!\n");
