@@ -106,6 +106,48 @@ int main()
 		system(CLEARCMD);
 		printf("Calculadora de Matrizes:\n");
 			system(CLEARCMD);
+		printf( "\n0)Sair" 
+			"\n1)Definir uma Matriz"
+			"\n2)Inserir uma elemento em uma Matriz(já definida)"
+			"\n3)Imprimir uma Matriz"
+			"\n4)Somar Matrizes"
+			"\n5)Multiplicar Matrizes"
+			"\n6)Salvar uma Matriz"
+			"\n7)Abrir uma Matriz"
+			"\n8)Exportar uma Matriz"
+			"\n9)Importar uma Matriz");
+		printf("\n\n>>> ");
+		scanf("%d",&menu);
+
+		system(CLEARCMD);
+		switch(menu)
+		{
+			case 1:
+				printf("Definir uma Matriz:\n\n");
+				printf("0)MatA\t1)MatB\n2)MatC\t3)MatD\n");
+				printf("\n>>> ");
+				scanf("%d", &res);
+				system(CLEARCMD);
+				freeMatrix(&matrizes[res]); // limpa a matriz anterior
+				scanMatrix(&matrizes[res]);
+				break;
+			case 2:
+				printf("Inserir uma elemento em uma Matriz\n\n");
+				printf("0)MatA\t1)MatB\n2)MatC\t3)MatD\n");
+				printf("\n>>> ");
+				scanf("%d", &res);
+				printf("Digite uma tripla 'i j Dado': ");
+				scanf("%d %d %lf", &i, &j, &Dado);
+				if(i<matrizes[res].Rows && j< matrizes[res].Cols)
+					insertMatrix(&matrizes[res], i, j, Dado);
+				system(CLEARCMD);
+				break;
+			case 3:
+				printf("Imprimir uma Matriz:\n\n");
+				printf("0)MatA\t1)MatB\n2)MatC\t3)MatD\n");
+				printf("\n>>> ");
+				scanf("%d",&res);
+				system(CLEARCMD);
 				printMatrix(stdout, &matrizes[res]);
 				printf("\nPressione [ENTER] para retornar ao menu ");
 				getchar();
