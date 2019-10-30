@@ -39,6 +39,7 @@ int busca_titulo_livro(char *titulo, Livro *livro)
 		if(!feof(fp) && (!strcmp(titulo, aux_busca.titulo)))
 		{
 			*(livro) = aux_busca;
+			fclose(fp);
 			return i;
 		}
 		else
@@ -110,8 +111,10 @@ int cadastrar_livro()
 	new_livro.editora[strlen(new_livro.editora) -1] = '\0';
 	printf("digite o ano: ");
 	scanf("%d", &new_livro.ano);
+	getchar();
 	printf("digite a edição: ");
 	scanf("%d", &new_livro.edicao);
+	getchar();
 	new_livro.status = DISP;
 	
 	/*Checa por dados repetidos*/
@@ -139,13 +142,11 @@ int alterar_status_livro()
 
 	printf("Digite o código: ");
 	scanf("%d", &codigo);
+	getchar();
 
-	pos = busca_generica_livro(codigo, &aux);
-	printf("%d\n", pos);	
 	/*O código não existe*/
-	if(pos<0) return 1;
+	if( (pos = busca_generica_livro(codigo, &aux))<0 ) return 1;
 	
-
 	if(aux.status == DISP)
 		aux.status = MANU;
 	else if(aux.status == MANU)
@@ -154,7 +155,7 @@ int alterar_status_livro()
 		return 1;/*O livro está emprestado*/
 	
 	/*Erros ao abrir o arquivo*/
-	if( !(fp = fopen(LIVRO_FILENAME, "wb")) ) return 1;
+	if( !(fp = fopen(LIVRO_FILENAME, "rb+")) ) return 1;
 
 	/*Escreve de volta no arquivo*/
 	fseek(fp, pos*sizeof(Livro), SEEK_SET);
@@ -198,6 +199,7 @@ int apagar_livro()
 	
 	printf("Digite o código: ");
 	scanf("%d", &codigo);
+	getchar();
 
 	/*Procura no arquivo por aquele código*/
 	if( (busca_generica_livro(codigo, &aux))<0 ) return 1;
@@ -238,6 +240,7 @@ int relatorio_livro()
 	tempo = *localtime(&agr);
 	printf("1)Tela\n2)Arquivo\n\n>>> ");
 	scanf("%d", &menu);
+	getchar();
 
 	if(menu==1)
 	{
@@ -255,10 +258,17 @@ int relatorio_livro()
 		strcat(filepath, PATH_REL);
 		strcat(filepath, filename);
 
-		if( !(stream = fopen(filepath, "w") ) ) return 1;
+		if( !(stream = fopen(filepath, "w") ) )
+		{
+			fclose(fp);
+			return 1;
+		}
 	}
 	else
+	{
+		fclose(fp);
 		return 1;
+	}
 
 	fprintf(stream, "Relatório de livros cadastrados:\nData: %02d/%02d/%02d @ %02d:%02d\n\n",
 			tempo.tm_mday,

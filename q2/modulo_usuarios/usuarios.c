@@ -82,6 +82,7 @@ int busca_generica_usuario(int matricula, Usuario *user)
 		if(!feof(fp) && (matricula == aux_busca.matricula))
 		{
 			*(user) = aux_busca;
+			fclose(fp);
 			return i;
 		}
 		else
@@ -160,12 +161,13 @@ int atualizar_cadastro()
 	
 	printf("Digite a matrícula: ");
 	scanf("%d", &matricula);
+	getchar();
 
 	/*Procura no arquivo por aquela matricula*/
 	if( (pos = busca_generica_usuario(matricula, &aux))<0 ) return 1;
 
 	/*Tenta abrir o arquivo para leitura*/
-	if( !(fp = fopen(USER_FILENAME, "wb")) );
+	if( !(fp = fopen(USER_FILENAME, "rb+")) );
 
 	printf("digite o novo rg: ");
 	scanf("%d", &aux.rg);
@@ -210,8 +212,8 @@ int consultar_usuario()
 	Usuario aux;
 	
 	printf("Digite a matrícula: ");
-	getchar();
 	scanf("%d", &matricula);
+	getchar();
 
 	/*Procura no arquivo por aquela matricula*/
 	if( (busca_generica_usuario(matricula, &aux))<0 ) return 1;
@@ -242,6 +244,7 @@ int apagar_usuario()
 	
 	printf("Digite a matrícula: ");
 	scanf("%d", &matricula);
+	getchar();
 
 	/*Procura no arquivo por aquela matricula*/
 	if( (busca_generica_usuario(matricula, &aux))<0 ) return 1;
@@ -282,6 +285,7 @@ int relatorio_usuario()
 	tempo = *localtime(&agr);
 	printf("1)Tela\n2)Arquivo\n\n>>> ");
 	scanf("%d", &menu);
+	getchar();
 
 	if(menu==1)
 	{
@@ -299,10 +303,17 @@ int relatorio_usuario()
 		strcat(filepath, PATH_REL);
 		strcat(filepath, filename);
 
-		if( !(stream = fopen(filepath, "w") ) ) return 1;
+		if( !(stream = fopen(filepath, "w") ) )
+		{
+			fclose(fp);
+			return 1;
+		}
 	}
 	else
+	{
+		fclose(fp);
 		return 1;
+	}
 
 	fprintf(stream, "Relatório de usuários cadastrados:\nData: %02d/%02d/%02d @ %02d:%02d\n\n",
 			tempo.tm_mday,
