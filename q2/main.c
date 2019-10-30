@@ -36,6 +36,7 @@ int main()
 			"\n4)Relatórios");
 		printf("\n\n>>> ");
 		scanf("%d",&menu0);
+		getchar();
 
 		system(CLEARCMD);
 		switch(menu0)
@@ -49,6 +50,7 @@ int main()
 					"\n4)Apagar usuário (fisicamente)");
 				printf("\n\n>>> ");
 				scanf("%d",&menu1);
+				getchar();
 				system(CLEARCMD);
 				switch(menu1)
 				{
@@ -74,7 +76,7 @@ int main()
 						else
 							printf("\nErro na consulta do cadastro!\n");
 						printf("\nPressione [ENTER] para retornar ao menu ");
-						getchar();
+						//getchar();
 						while(getchar()!='\n');
 						break;
 					case 4:
@@ -83,7 +85,7 @@ int main()
 						else
 							printf("\nErro ao deletar o usuário!\n");
 						printf("\nPressione [ENTER] para retornar ao menu ");
-						getchar();
+						//getchar();
 						while(getchar()!='\n');
 						break;
 					default:
@@ -100,6 +102,7 @@ int main()
 					"\n4)Apagar obra (fisicamente)");
 				printf("\n\n>>> ");
 				scanf("%d",&menu1);
+				getchar();
 				system(CLEARCMD);
 				switch(menu1)
 				{
@@ -109,7 +112,7 @@ int main()
 						else
 							printf("\nErro no cadastro do livro!\n");
 						printf("\nPressione [ENTER] para retornar ao menu ");
-						getchar();
+						//getchar();
 						while(getchar()!='\n');
 						break;
 					case 2:
@@ -118,7 +121,7 @@ int main()
 						else
 							printf("\nErro na alteração do status!\n");
 						printf("\nPressione [ENTER] para retornar ao menu ");
-						getchar();
+						//getchar();
 						while(getchar()!='\n');
 						break;
 					case 3:
@@ -127,7 +130,7 @@ int main()
 						else
 							printf("\nErro na consulta do livro!\n");
 						printf("\nPressione [ENTER] para retornar ao menu ");
-						getchar();
+						//getchar();
 						while(getchar()!='\n');
 						break;
 					case 4:
@@ -136,7 +139,7 @@ int main()
 						else
 							printf("\nErro ao deletar o livro!\n");
 						printf("\nPressione [ENTER] para retornar ao menu ");
-						getchar();
+						//getchar();
 						while(getchar()!='\n');
 						break;
 					default:
@@ -152,6 +155,7 @@ int main()
 					"\n3)Relatório de Empréstimos");
 				printf("\n\n>>> ");
 				scanf("%d",&menu1);
+				getchar();
 				system(CLEARCMD);
 				switch(menu1)
 				{
@@ -186,6 +190,7 @@ int main()
 					"\n3)Relatórios de empréstimos");
 				printf("\n\n>>> ");
 				scanf("%d",&menu1);
+				getchar();
 				system(CLEARCMD);
 				switch(menu1)
 				{
@@ -195,7 +200,7 @@ int main()
 						else
 							printf("\nErro ao imprimir relatório!\n");
 						printf("\nPressione [ENTER] para retornar ao menu ");
-						getchar();
+						//getchar();
 						while(getchar()!='\n');
 						break;
 					case 2:
@@ -204,7 +209,7 @@ int main()
 						else
 							printf("\nErro ao imprimir relatório!\n");
 						printf("\nPressione [ENTER] para retornar ao menu ");
-						getchar();
+						//getchar();
 						while(getchar()!='\n');
 						break;
 					/*
@@ -228,4 +233,3 @@ int main()
 	}
 	return 0;
 }
-
