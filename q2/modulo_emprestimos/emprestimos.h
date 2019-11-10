@@ -11,9 +11,9 @@
 #include "../modulo_livros/livros.h"
 #include "../modulo_usuarios/usuarios.h"
 #else
-#define EMPR_FILENAME "modulo_emprestimos\emprestimos.dat"
-#include "..\modulo_livros\livros.h"
-#include "..\modulo_usuarios\usuarios.h"
+#define EMPR_FILENAME "modulo_emprestimos\\emprestimos.dat"
+#include "..\\modulo_livros\\livros.h"
+#include "..\\modulo_usuarios\\usuarios.h"
 #endif
 
 
@@ -27,15 +27,19 @@ typedef struct
 	struct tm emprestimo, devolucao;
 }Emprestimo;
 
-/*Vai ordenar os empréstimos por título dos livros*/
+/* Vai ordenar os empréstimos por matricula do usuário 
+ * e data de emprestimo dos livros */
 void sort_emprestimos();
 
 /*Muda o status do usuário de SUSP para NORM ou de NORM para SUSP.Nesse último
  * caso também seta sua data de suspensão para 30 dias a partir de 'hoje' */
-void mudar_status_usuario(int matricula, int tipo, struct tm hoje);
+void mudar_status_usuario(int matricula, struct tm hoje);
 
-/*Retorna a data de devolução do do último emprestido do usuário 'u'*/
-struct tm ultimo_emprestimo(Usuario u);
+/*Muda o status do livro de DISP para SUSP*/
+void mudar_status_livro(int codigo);
+
+/*Retorna os empréstimos do usuário*/
+int busca_emprestimo(int matricula, Emprestimo *emp, int n);
 
 /*Empresta um livro para um usuário*/
 int emprestar();
