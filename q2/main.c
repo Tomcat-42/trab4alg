@@ -1,12 +1,12 @@
 #ifdef __unix__
 #define CLEARCMD "clear"
 #include "./modulo_usuarios/usuarios.h"
-//#include "./modulo_emprestimos/emprestimos.h"
+#include "./modulo_emprestimos/emprestimos.h"
 #include "./modulo_livros/livros.h"
 #else
 #define CLEARCMD "cls"
 #include "modulo_usuarios\usuarios.h"
-//#include "modulo_emprestimos\emprestimos.h"
+#include "modulo_emprestimos\emprestimos.h"
 #include "modulo_livros\livros.h"
 #endif
 
@@ -146,13 +146,11 @@ int main()
 						break;
 				}
 				break;
-			/*
 			case 3:
-				printf("Empréstimos e Devoluções:");
+				printf("Empréstimos e Devoluções:\n");
 				printf( "\n0)Voltar" 
 					"\n1)Emprestar"
-					"\n2)Devolver"
-					"\n3)Relatório de Empréstimos");
+					"\n2)Devolver");
 				printf("\n\n>>> ");
 				scanf("%d",&menu1);
 				getchar();
@@ -165,7 +163,6 @@ int main()
 						else
 							printf("\nErro no empréstimo do livro!\n");
 						printf("\nPressione [ENTER] para retornar ao menu ");
-						getchar();
 						while(getchar()!='\n');
 						break;
 					case 2:
@@ -174,14 +171,12 @@ int main()
 						else
 							printf("\nErro na devolução do livro!\n");
 						printf("\nPressione [ENTER] para retornar ao menu ");
-						getchar();
 						while(getchar()!='\n');
 						break;
 					default:
 						break;
 				}
 				break;
-				*/
 			case 4:
 				printf("Relatórios:\n");
 				printf( "\n0)Voltar" 
@@ -212,17 +207,14 @@ int main()
 						//getchar();
 						while(getchar()!='\n');
 						break;
-					/*
 					case 3:
 						if(!relatorio_emprestimo())
 							printf("\nRelatório impresso com sucesso!\n");
 						else
 							printf("\nErro ao imprimir relatório!\n");
 						printf("\nPressione [ENTER] para retornar ao menu ");
-						getchar();
 						while(getchar()!='\n');
 						break;
-					*/
 					default:
 						break;
 				}

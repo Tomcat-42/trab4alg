@@ -24,6 +24,7 @@ typedef struct
 	int fone_red;
 	int codigo;
 	char titulo[81];
+	char nome[51];
 	struct tm emprestimo, devolucao;
 }Emprestimo;
 
@@ -40,6 +41,9 @@ void mudar_status_livro(int codigo);
 
 /*Retorna os empréstimos do usuário*/
 int busca_emprestimo(int matricula, Emprestimo *emp, int n);
+
+/*Retorna os empréstimos do usuário, busca por codigo do livro*/
+int busca_emprestimo_codigo(int codigo, Emprestimo *emp);
 
 /*Empresta um livro para um usuário*/
 int emprestar();
