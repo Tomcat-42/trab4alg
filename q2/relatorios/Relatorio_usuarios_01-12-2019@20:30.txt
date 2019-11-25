@@ -1,0 +1,169 @@
+Relatório de usuários cadastrados:
+Data: 01/12/2019 @ 20:30
+
+
+matrícula: 1
+rg: 42343456
+cpf: fssss9094
+nome: Steven Universe
+endereço: Beach City
+data de nascimento: 09/05/1987
+sexo: M
+bairro: Praia
+telefone residencial: 87923231
+telefone móvel: 9890823
+data de adesão: 16/11/2019
+status: NORMAL
+volumes emprestados: 0
+
+
+matrícula: 2
+rg: 2434324
+cpf: sssfs243243
+nome: Aslam
+endereço: Nárnia
+data de nascimento: 03/02/1987
+sexo: M
+bairro: dlads
+telefone residencial: 87474838
+telefone móvel: -215916289
+data de adesão: 16/11/2019
+status: NORMAL
+volumes emprestados: 0
+
+
+matrícula: 3
+rg: 4543545
+cpf: dsfssdsmdv
+nome: Jake Peralta
+endereço: Rua 99
+data de nascimento: 03/11/1989
+sexo: M
+bairro: Brooklyn
+telefone residencial: 999765434
+telefone móvel: 4457695
+data de adesão: 16/11/2019
+status: NORMAL
+volumes emprestados: 0
+
+
+matrícula: 4
+rg: 564557
+cpf: egf545646
+nome: Arthur Dent
+endereço: Via Lactea
+data de nascimento: 08/06/1995
+sexo: M
+bairro: UK
+telefone residencial: 9971203
+telefone móvel: 32546768
+data de adesão: 16/11/2019
+status: NORMAL
+volumes emprestados: 0
+
+
+matrícula: 7
+rg: 4353456
+cpf: dd4523234
+nome: Ford Prefect
+endereço: Via láctea
+data de nascimento: 05/03/1942
+sexo: M
+bairro: Betelgeuse II
+telefone residencial: 32546768
+telefone móvel: 998156798
+data de adesão: 16/11/2019
+status: NORMAL
+volumes emprestados: 0
+
+
+matrícula: 8
+rg: 4355454
+cpf: wwr434234
+nome: Cthulhu
+endereço: R'lyeh
+data de nascimento: 05/03/1900
+sexo: M
+bairro: Pacífico Sul
+telefone residencial: 86849204
+telefone móvel: 42829943
+data de adesão: 16/11/2019
+status: NORMAL
+volumes emprestados: 0
+
+
+matrícula: 9
+rg: 434234
+cpf: sfds323
+nome: Alice
+endereço: País Das Maravílhas
+data de nascimento: 09/08/1987
+sexo: M
+bairro: Bairro adsakdbsd
+telefone residencial: 89764543
+telefone móvel: 87659797
+data de adesão: 16/11/2019
+status: NORMAL
+volumes emprestados: 0
+
+
+matrícula: 13
+rg: 3545435
+cpf: 453454rg
+nome: Naruto Uzumaki
+endereço: Balanço Triste
+data de nascimento: 09/07/1996
+sexo: M
+bairro: Konohagamure
+telefone residencial: 9876453
+telefone móvel: 998171773
+data de adesão: 16/11/2019
+status: NORMAL
+volumes emprestados: 0
+
+
+matrícula: 15
+rg: 1323233123
+cpf: asdcacq313
+nome: Jailson Mendes
+endereço: rua da delícia
+data de nascimento: 07/08/1978
+sexo: M
+bairro: Condomínio aaaaaaaaaaa
+telefone residencial: 998203445
+telefone móvel: 998450987
+data de adesão: 16/11/2019
+status: NORMAL
+volumes emprestados: 0
+
+
+matrícula: 17
+rg: 45345
+cpf: lfnsf4532
+nome: Marsellus Wallace
+endereço: Rua desconhecida
+data de nascimento: 09/07/1923
+sexo: M
+bairro: Bairro sdsdasd
+telefone residencial: 87654321
+telefone móvel: 98992343
+data de adesão: 16/11/2019
+status: NORMAL
+volumes emprestados: 0
+
+
+matrícula: 43
+rg: 45334544
+cpf: sbfn2423434
+nome: Vincent Vega
+endereço: Rua asdasdas
+data de nascimento: 02/11/1975
+sexo: M
+bairro: Bairro lfbllbjq
+telefone residencial: 98763212
+telefone móvel: 99713455
+data de adesão: 16/11/2019
+status: NORMAL
+volumes emprestados: 0
+
+

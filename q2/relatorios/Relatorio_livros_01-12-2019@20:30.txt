@@ -1,0 +1,191 @@
+Relatório de livros cadastrados:
+Data: 01/12/2019 @ 20:30
+
+
+código: 1
+isbn: 274891737
+título: Álgebra Linear
+autores: Alfredo Steinbruch, Paulo Winterle
+assunto: Matemática
+editora: Pearson
+ano: 1995
+edição: 4
+status: DISPONÍVEL
+
+
+código: 3
+isbn: 978852211463
+título: Cálculo II
+autores: James Stewart
+assunto: Matemática
+editora: CENGAGE Learning
+ano: 2013
+edição: 7
+status: DISPONÍVEL
+
+
+código: 4
+isbn: 978858863934
+título: Física III
+autores: Hugh D. Young, Roger A. Freedman
+assunto: Física
+editora: Pearson
+ano: 2009
+edição: 12
+status: DISPONÍVEL
+
+
+código: 7
+isbn: 671294567878
+título: O cálculo com Geometria analítica
+autores: Louis Leithold
+assunto: Matemática
+editora: HARBRA
+ano: 1994
+edição: 3
+status: DISPONÍVEL
+
+
+código: 10
+isbn: 47471038310
+título: Geometria analítica
+autores: Alfredo Steinbruch, Paulo Winterle
+assunto: Matemática
+editora: Pearson
+ano: 1995
+edição: 4
+status: DISPONÍVEL
+
+
+código: 11
+isbn: 657382921
+título: Computer Science Illuminated
+autores: Nell Dale, John Lewis
+assunto: Ciência da Computação
+editora: J&B
+ano: 2002
+edição: 3
+status: DISPONÍVEL
+
+
+código: 12
+isbn: 6555986868
+título: O Guia do Mochileiro das Galáxias
+autores: Douglas Adams
+assunto: ficção científica
+editora: Sextante
+ano: 1993
+edição: 3
+status: DISPONÍVEL
+
+
+código: 13
+isbn: 083021382
+título: O Restaurante no Fim do Universo
+autores: Douglas Adams
+assunto: ficção científica
+editora: Sextante
+ano: 1993
+edição: 3
+status: DISPONÍVEL
+
+
+código: 14
+isbn: 1932938123
+título: A Vida, o Universo e Tudo Mais
+autores: Douglas Adams
+assunto: ficção científica
+editora: Sextante
+ano: 1993
+edição: 4
+status: DISPONÍVEL
+
+
+código: 15
+isbn: 3274784234
+título: Até mais, e Obrigado pelos Peixes
+autores: Douglas Adams
+assunto: ficção científica
+editora: Sextante
+ano: 1993
+edição: 2
+status: DISPONÍVEL
+
+
+código: 16
+isbn: 3193823
+título: Praticamente Inofensiva
+autores: Douglas Adams
+assunto: ficção científica
+editora: Sextante
+ano: 1993
+edição: 1
+status: DISPONÍVEL
+
+
+código: 17
+isbn: 938713
+título: 1984
+autores: George Orwell
+assunto: distopia política
+editora: Companhia das Letras
+ano: 1984
+edição: 2
+status: DISPONÍVEL
+
+
+código: 19
+isbn: 9837123
+título: As crônicas de Nárnia
+autores: C.S. Lewis
+assunto: aventura
+editora: Saraiva
+ano: 1987
+edição: 4
+status: DISPONÍVEL
+
+
+código: 20
+isbn: 2498318328
+título: Admirável Mundo Novo
+autores: Aldous Huxley
+assunto: distopia política
+editora: Companhia das Letras
+ano: 1997
+edição: 3
+status: DISPONÍVEL
+
+
+código: 21
+isbn: 39293434
+título: Fahrenheit 451
+autores: Ray Bradbury
+assunto: distopia política
+editora: Saraiva
+ano: 1953
+edição: 3
+status: DISPONÍVEL
+
+
+código: 22
+isbn: 3484724234
+título: H.P. Lovecraft: The Complete Fiction
+autores: H.P. Lovecraft
+assunto: ficção e terror
+editora: Saraiva
+ano: 2019
+edição: 3
+status: DISPONÍVEL
+
+
+código: 32
+isbn: 11321383
+título: A Revolução dos Bichos
+autores: George Orwell
+assunto: distopia política
+editora: Companhia das Letras
+ano: 1998
+edição: 1
+status: DISPONÍVEL
+
+

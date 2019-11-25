@@ -296,5 +296,6 @@ int relatorio_livro()
 		fprintf(stream, "\n");
 	}
 	fclose(fp);
+	if(menu == 2) fclose(stream);
 	return 0;
 }

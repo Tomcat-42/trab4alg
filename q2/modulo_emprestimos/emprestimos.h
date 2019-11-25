@@ -16,6 +16,9 @@
 #include "..\\modulo_usuarios\\usuarios.h"
 #endif
 
+/*Tempo de suspensão por atraso, em segundos*/
+#define EMPR_SUSP 30*24*60*60 
+//#define EMPR_SUSP 180
 
 /*Estrutura de um empréstimo*/
 typedef struct

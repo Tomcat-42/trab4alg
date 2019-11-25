@@ -95,7 +95,7 @@ int busca_generica_usuario(int matricula, Usuario *user)
 int cadastrar_usuario()
 {
 	Usuario new_user;
-	time_t agora;
+	time_t agora, aux=0;
 	FILE *fp;
 	int ano, mes;
 	
@@ -134,6 +134,7 @@ int cadastrar_usuario()
 	new_user.adesao = *localtime(&agora);
 	new_user.status = NORM;
 	new_user.num_emprest = 0;
+	new_user.term_susp = *(localtime(&aux));
 	
 	/*Checa por dados repetidos*/
 	if( busca_repetido_usuario(new_user.matricula, new_user.rg, new_user.cpf) ) return 1;
@@ -345,6 +346,6 @@ int relatorio_usuario()
 		fprintf(stream, "\n");
 	}
 	fclose(fp);
+	if(menu == 2) fclose(stream);
 	return 0;
-
 }
