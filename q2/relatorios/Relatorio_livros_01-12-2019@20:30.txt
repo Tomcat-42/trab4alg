@@ -185,7 +185,4 @@ autores: George Orwell
 assunto: distopia política
 editora: Companhia das Letras
 ano: 1998
-edição: 1
-status: DISPONÍVEL
-
-
+edição: 

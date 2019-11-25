@@ -12,29 +12,28 @@ void sort_emprestimo()
 	/*Calcula o número de strucs do arquivo*/
 	fseek(fp, 0, SEEK_END);
 	tam = (int)ftell(fp)/(int)sizeof(Emprestimo);
+
 	/*Move o ponteiro para a penúltima struct no arquivo do arquivo*/
 	fseek(fp, -(2*sizeof(Emprestimo)), SEEK_END);
 	for(i=1; i<tam; i++)
 	{
 		fread(&aux0, sizeof(Emprestimo), 1, fp);
 		fread(&aux1, sizeof(Emprestimo), 1, fp);
-
+		
 		if(aux0.matricula > aux1.matricula)
 		{
 			fseek(fp, -(2*sizeof(Emprestimo)), SEEK_CUR);
 			fwrite(&aux1, sizeof(Emprestimo), 1, fp);
 			fwrite(&aux0, sizeof(Emprestimo), 1, fp);
-			fseek(fp, -((2*sizeof(Emprestimo)) + (i*sizeof(Emprestimo))), SEEK_END);
 		}
 		else if(aux0.matricula == aux1.matricula)
 		{
-			if(difftime(mktime(&aux0.emprestimo), mktime(&aux1.emprestimo))>0)
+			if(difftime(mktime(&aux0.devolucao), mktime(&aux1.devolucao))>0)
 			{
 				fseek(fp, -(2*sizeof(Emprestimo)), SEEK_CUR);
 				fwrite(&aux1, sizeof(Emprestimo), 1, fp);
 				fwrite(&aux0, sizeof(Emprestimo), 1, fp);
 			}
-			fseek(fp, -((2*sizeof(Emprestimo)) + (i*sizeof(Emprestimo))), SEEK_END);
 		}
 		/*A última struct está no local correto*/
 		else
@@ -42,6 +41,8 @@ void sort_emprestimo()
 			fclose(fp);
 			return;
 		}
+		
+		fseek(fp, -((2+i)*sizeof(Emprestimo)), SEEK_END);
 	}
 	fclose(fp);
 	return;
@@ -129,6 +130,7 @@ int busca_emprestimo(int matricula, Emprestimo *emp, int n)
 				*(emp+j) = aux_busca;
 				fread(&aux_busca, sizeof(Emprestimo), 1, fp);
 			}
+
 			fclose(fp);
 			return i;
 		}
@@ -178,7 +180,6 @@ int emprestar()
 	
 	printf("digite a matrícula: ");
 	scanf("%d", &matricula);
-	printf("%d\n",matricula);
 	getchar();
 
 	/*busca e retorna o usuário*/
@@ -190,7 +191,7 @@ int emprestar()
 	
 	/*O usuário está suspenso e a data de suspensão não chegou*/
 	if(usuario.status == SUSP && 
-	   difftime(agr, mktime(&usuario.term_susp))>=0)
+	   difftime(agr, mktime(&usuario.term_susp))<0)
 	{
 		printf("Empréstimo não pode ser realizado: Usuário suspenso até %02d/%02d/%02d.\n",
 				usuario.term_susp.tm_mday,
@@ -200,7 +201,7 @@ int emprestar()
 	}
 	/*O usuário está suspenso e a data de suspensão já passou*/
 	else if(usuario.status == SUSP && 
-	   difftime(agr, mktime(&usuario.term_susp))<0)
+	   difftime(agr, mktime(&usuario.term_susp))>=0)
 	{
 		mudar_status_usuario(matricula, hoje);
 	}
@@ -212,26 +213,20 @@ int emprestar()
 		return 1;
 	}
 	
-	printf("aaaaaaaaaaaa\n");
 	/*O usuário existe e não está suspenso, checa se algum de seus
 	 * empréstimos está em atraso*/
-	if( busca_emprestimo(matricula, &emp[0], usuario.num_emprest) > 0)
+	if( busca_emprestimo(matricula, &emp[0], usuario.num_emprest) >= 0)
 	{
 		for(i=usuario.num_emprest-1; i>=0; i--)
 		{
 			printf("%s\n", asctime(&emp[i].devolucao));
 			/*O livro atrasado mais recente*/
-			/*
-			if(difftime(agr, mktime(&emp[i].devolucao))<0)
+			if(difftime(agr, mktime(&emp[i].devolucao))>0)
 			{
 				mudar_status_usuario(matricula, emp[i].devolucao);
-				printf("Empréstimo não pode ser realizado: Usuário suspenso até %02d/%02d/%02d.\n",
-					usuario.term_susp.tm_mday,
-					usuario.term_susp.tm_mon+1,
-					usuario.term_susp.tm_year+1900);
+				printf("Empréstimo não pode ser realizado: Volume em atraso encontrado.\n");
 				return 1;
 			}
-			*/
 		}
 	}
 	
@@ -330,11 +325,15 @@ int devolver()
 	
 	/*Se o usuário atrasou a devolução*/
 	time(&agr);
-	if(difftime(agr, mktime(&empr.devolucao))<=0)
+	if(usuario.status == NORM && difftime(agr, mktime(&empr.devolucao))>0)
 	{
 		usuario.status = SUSP;
 		aux = agr + (EMPR_SUSP);
 		usuario.term_susp = *localtime(&aux);
+		printf("Volume entrege com atraso, usuário suspenso até: %02d/%02d/%04d!\n",
+				usuario.term_susp.tm_mday,
+				usuario.term_susp.tm_mon+1,
+				usuario.term_susp.tm_year+1900);
 	}
 	
 	if( !(fp_empr = fopen(EMPR_FILENAME, "rb+")) || 
