@@ -9,9 +9,11 @@
 #ifdef __unix__
 #define USER_FILENAME "modulo_usuarios/usuarios.dat"
 #define PATH_REL "relatorios/"
+#include "../tools/tools.h"
 #else
 #define USER_FILENAME "modulo_usuarios\\usuarios.dat"
 #define PATH_REL "relatorios\\"
+#include "..\\tools\\tools.h"
 #endif
 
 /*Enum que representa o status do usuário*/
@@ -37,14 +39,11 @@ typedef struct
 	
 }Usuario;
 
-/*Busca uma entrada que contém dados repetidos*/
-int busca_repetido_usuario(int matricula, int rg, char *cpf);
+/*compara pela matricula*/
+int cmp_matricula(const void *a, const void *b);
 
-/*Pega a última entrada e insere no local correto*/
-void sort_usuario();
-
-/*vai buscar o usuario e gravar na struct *user, além disso vai retornar a posição dele no arquivo*/
-int busca_generica_usuario(int matricula, Usuario *user);
+/*compara pela matricula, rg e cpf*/
+int cmp_repetido(const void *a, const void *b);
 
 /*Cadastra um usuário no arquivo*/
 int cadastrar_usuario();
