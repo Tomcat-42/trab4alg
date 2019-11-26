@@ -32,6 +32,7 @@ int cadastrar_usuario()
 	time_t agora, aux=0;
 	FILE *fp;
 	int ano, mes;
+	size_t tam_user, num_user;
 	
 	/*Tenta abrir o arquivo de usuários*/
 	if( !(fp = fopen(USER_FILENAME, "rb+")))
@@ -40,6 +41,9 @@ int cadastrar_usuario()
 			printf("\nErro ao criar base de dados!\n");
 			return 1;
 		}
+	fseek(fp, 0, SEEK_END);
+	tam_user = sizeof(Usuario);
+	num_user = ftell(fp)/tam_user;
 
 	printf("digite a matrícula: ");
 	scanf("%d", &new_user.matricula);
@@ -81,12 +85,12 @@ int cadastrar_usuario()
 	
 	/*Checa por dados repetidos*/
 	fseek(fp, 0, SEEK_END);
-	if( search_file(fp, ftell(fp)/sizeof(Usuario), sizeof(Usuario), &new_user,
+	if( search_file(fp, num_user, tam_user, &new_user,
 				cmp_repetido,
 				1,
 				&aux_user) >=0)
 	{
-		printf("\nErro: Algum dado já conta na base de dados!\n");
+		printf("\nErro: Algum dado já consta na base de dados!\n");
 		fclose(fp);
 		return 1;
 	}
@@ -94,11 +98,11 @@ int cadastrar_usuario()
 
 	/*Escreve no arquivo*/
 	fseek(fp, 0, SEEK_END);
-	fwrite(&new_user, sizeof(Usuario), 1, fp);
+	fwrite(&new_user, tam_user, 1, fp);
 	
 	/*Ordena o arquivo*/
 	fseek(fp, 0, SEEK_END);
-	sort_file(fp, ftell(fp)/sizeof(Usuario), sizeof(Usuario), cmp_matricula);
+	sort_file(fp, num_user, tam_user, cmp_matricula);
 
 	fclose(fp);
 
@@ -110,6 +114,7 @@ int atualizar_cadastro()
 	FILE *fp;
 	int pos, mes, ano;
 	Usuario aux;
+	size_t tam_user, num_user;
 	
 	/*Tenta abrir o arquivo de usuários*/
 	if( !(fp = fopen(USER_FILENAME, "rb+")))
@@ -117,6 +122,9 @@ int atualizar_cadastro()
 		printf("\nErro: Nenhum usuário cadastrado!\n");
 		return 1;
 	}
+	fseek(fp, 0, SEEK_END);
+	tam_user = sizeof(Usuario);
+	num_user = ftell(fp)/tam_user;
 	
 	printf("Digite a matrícula: ");
 	scanf("%d", &aux.matricula);
@@ -124,7 +132,7 @@ int atualizar_cadastro()
 
 	/*Procura no arquivo por aquela matricula*/
 	fseek(fp, 0, SEEK_END);
-	if((pos = search_file(fp, ftell(fp)/sizeof(Usuario), sizeof(Usuario), &aux, cmp_matricula, 1, &aux))<0)
+	if((pos = search_file(fp, num_user, tam_user, &aux, cmp_matricula, 1, &aux))<0)
 	{
 		printf("\nErro: matrícula inexistente na base de dados!\n");
 		fclose(fp);
@@ -161,8 +169,8 @@ int atualizar_cadastro()
 	scanf("%d", &aux.fone_cel);
 	getchar();
 		
-	fseek(fp, pos*sizeof(Usuario), SEEK_SET);
-	fwrite(&aux, sizeof(Usuario), 1, fp);
+	fseek(fp, pos*tam_user, SEEK_SET);
+	fwrite(&aux, tam_user, 1, fp);
 	fclose(fp);
 	
 	return 0;
@@ -172,6 +180,7 @@ int consultar_usuario()
 {
 	FILE *fp;
 	Usuario aux;
+	size_t tam_user, num_user;
 	
 	/*Tenta abrir o arquivo de usuários*/
 	if( !(fp = fopen(USER_FILENAME, "rb+")))
@@ -179,6 +188,9 @@ int consultar_usuario()
 		printf("\nErro: Nenhum usuário cadastrado!\n");
 		return 1;
 	}
+	fseek(fp, 0, SEEK_END);
+	tam_user = sizeof(Usuario);
+	num_user = ftell(fp)/tam_user;
 	
 	printf("Digite a matrícula: ");
 	scanf("%d", &aux.matricula);
@@ -186,7 +198,7 @@ int consultar_usuario()
 
 	/*Procura no arquivo por aquela matricula*/
 	fseek(fp, 0, SEEK_END);
-	if((search_file(fp, ftell(fp)/sizeof(Usuario), sizeof(Usuario), &aux, cmp_matricula, 1, &aux))<0)
+	if((search_file(fp, num_user, tam_user, &aux, cmp_matricula, 1, &aux))<0)
 	{
 		printf("\nErro: matrícula inexistente na base de dados!\n");
 		fclose(fp);
@@ -217,9 +229,15 @@ int apagar_usuario()
 {
 	FILE *fp_old, *fp_new;
 	Usuario aux, aux_new;
+	size_t tam_user, num_user;
 	
 	/*Tenta abrir os arquivos*/
-	if( !(fp_old = fopen(USER_FILENAME, "rb")) || !(fp_new = fopen("usuario_bk.dat", "wb") )) return 1;
+	if( !(fp_old = fopen(USER_FILENAME, "rb")) || !(fp_new = fopen("usuario_bk.dat", "wb") )) 
+		return 1;
+	
+	fseek(fp_old, 0, SEEK_END);
+	tam_user = sizeof(Usuario);
+	num_user = ftell(fp_old)/tam_user;
 	
 	printf("Digite a matrícula: ");
 	scanf("%d", &aux.matricula);
@@ -228,7 +246,7 @@ int apagar_usuario()
 
 	/*Procura no arquivo por aquela matricula*/
 	fseek(fp_old, 0, SEEK_END);
-	if((search_file(fp_old, ftell(fp_old)/sizeof(Usuario), sizeof(Usuario), &aux, cmp_matricula, 1, &aux))<0)
+	if((search_file(fp_old, num_user, tam_user, &aux, cmp_matricula, 1, &aux))<0)
 	{
 		printf("\nErro: matrícula inexistente na base de dados!\n");
 		fclose(fp_old);
@@ -240,7 +258,7 @@ int apagar_usuario()
 	/*Se o usuário está suspenso*/
 	if(aux.status)
 	{
-		printf("\nErro: usuários suspensos não podem ser apagados!\n");
+		printf("\nerro: usuários suspensos não podem ser apagados!\n");
 		fclose(fp_old);
 		fclose(fp_new);
 		remove("usuario_bk.dat");
@@ -250,9 +268,9 @@ int apagar_usuario()
 	rewind(fp_old);
 	while(!feof(fp_old))
 	{
-		fread(&aux_new, sizeof(Usuario), 1, fp_old);
+		fread(&aux_new, tam_user, 1, fp_old);
 		if(!feof(fp_old) && aux_new.matricula != aux.matricula)
-			fwrite(&aux_new, sizeof(Usuario), 1, fp_new);
+			fwrite(&aux_new, tam_user, 1, fp_new);
 
 	}
 	fclose(fp_old);
@@ -271,6 +289,7 @@ int relatorio_usuario()
 	time_t agr;
 	struct tm tempo;
 	int menu;
+	size_t tam_user = sizeof(Usuario);
 	
 	/*Tenta abrir o arquivo*/
 	if( !(fp = fopen(USER_FILENAME, "rb") ) ) return 1;
@@ -318,7 +337,7 @@ int relatorio_usuario()
 	
 	while(!feof(fp))
 	{
-		fread(&aux, sizeof(Usuario), 1, fp);
+		fread(&aux, tam_user, 1, fp);
 		if(!feof(fp))
 		{
 			fprintf(stream, "\nmatrícula: %d\n", aux.matricula);

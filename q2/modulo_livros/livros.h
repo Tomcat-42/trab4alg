@@ -9,9 +9,11 @@
 #ifdef __unix__
 #define LIVRO_FILENAME "modulo_livros/livros.dat"
 #define PATH_REL "relatorios/"
+#include "../tools/tools.h"
 #else
 #define LIVRO_FILENAME "modulo_livros\\livros.dat"
 #define PATH_REL "relatorios\\"
+#include "..\\tools\\tools.h"
 #endif
 
 /*Enum que representa o status do livro*/
@@ -31,11 +33,18 @@ typedef struct
 	int status;
 }Livro;
 
-/*vai buscar o livro e gravar na struct *livro, além disso vai retornar a posição dele no arquivo*/
-int busca_generica_livro(int codigo, Livro *livro);
 
-/*Pega a última entrada e insere no local correto*/
+int busca_generica_livro(int codigo, Livro *livro);
 void sort_livro();
+
+/*vai buscar o livro e gravar na struct *livro, além disso vai retornar a posição dele no arquivo*/
+/*Pega a última entrada e insere no local correto*/
+
+/*Comparação por código*/
+int cmp_codigo(const void *a, const void *b);
+
+/*Comparação por título*/
+int cmp_titulo(const void *a, const void *b);
 
 /*Cadastra um livro no arquivo*/
 int cadastrar_livro();
