@@ -268,7 +268,7 @@ int emprestar()
 	
 	num_user = ftell(fp_usuario)/tam_user;
 	num_livro = ftell(fp_livro)/tam_livro;
-	num_empr = ftell(fp_livro)/tam_empr;
+	num_empr = ftell(fp_empr)/tam_empr;
 
 
 	printf("digite a matrícula: ");
@@ -281,7 +281,7 @@ int emprestar()
 					1,
 					&usuario))<0 )
 	{
-		printf("Empréstimo não pode ser realizado: Usuário inexistente!\n");
+		printf("\nEmpréstimo não pode ser realizado: Usuário inexistente!\n");
 
 		fclose(fp_usuario);
 		fclose(fp_livro);
@@ -315,7 +315,7 @@ int emprestar()
 	/*checa a qntd de empréstimos do usuário*/
 	if(usuario.num_emprest>=4)
 	{
-		printf("Empréstimo não pode ser realizado: Usuário possui 4 volumes em seu poder.\n");
+		printf("\nEmpréstimo não pode ser realizado: Usuário possui 4 volumes em seu poder.\n");
 		fclose(fp_usuario);
 		fclose(fp_livro);
 		fclose(fp_empr);
@@ -400,8 +400,10 @@ int emprestar()
 	fseek(fp_livro, pos_livro*tam_livro, SEEK_SET);
 	fwrite(&livro, tam_livro, 1, fp_livro);
 	
+	printf("%lu\n",num_empr);
+
 	/*Ordena o arquivo*/
-	sort_file(fp_empr, num_empr, tam_empr, cmp_empr_matricula_dev);
+	sort_file(fp_empr, (num_empr+1), tam_empr, cmp_empr_matricula_dev);
 	
 	fclose(fp_empr);
 	fclose(fp_usuario);
@@ -453,7 +455,7 @@ int devolver()
 	
 	num_user = ftell(fp_usuario)/tam_user;
 	num_livro = ftell(fp_livro)/tam_livro;
-	num_empr = ftell(fp_livro)/tam_empr;
+	num_empr = ftell(fp_empr)/tam_empr;
 	
 	printf("digite o código: ");
 	scanf("%d", &livro.codigo);
@@ -465,10 +467,10 @@ int devolver()
 		printf("\nErro: Código inválido.\n");
 		return 1;
 	}
-
+	
 	empr.codigo = livro.codigo;
-	if( (search_file(fp_empr, num_empr, tam_empr, &empr_aux,
-					cmp_codigo, 1, &empr))<0 )
+	if( (search_file(fp_empr, num_empr, tam_empr, &empr,
+					cmp_empr_codigo, 1, &empr))<0 )
 	{
 		printf("\nErro: volume não emprestado.\n");
 		return 1;
@@ -532,7 +534,11 @@ int relatorio_emprestimo()
 	int menu, i;
 	
 	/*Tenta abrir o arquivo*/
-	if( !(fp = fopen(EMPR_FILENAME, "rb") ) ) return 1;
+	if( !(fp = fopen(EMPR_FILENAME, "rb") ) )
+	{
+		printf("\nErro: nenhum empréstimo consta na base de dados!\n");
+		return 1;
+	}
 	
 	time(&agr);
 	tempo = *localtime(&agr);

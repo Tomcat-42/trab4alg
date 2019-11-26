@@ -53,7 +53,8 @@ int search_file(FILE *fp, size_t n, size_t tam,
 			/*Copia a(s) struct encontrada para retornar*/
 			for(j=0; j<num; j++)
 			{
-				memcpy((ret+j), aux, tam);
+				/*Parabéns, ao ver essa gambiarra você ganha um AVC de graça*/
+				memcpy(((char*)ret + j*tam), aux, tam);
 				fread(aux, tam, 1, fp);
 			}
 			return i;
