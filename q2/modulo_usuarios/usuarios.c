@@ -47,6 +47,7 @@ int cadastrar_usuario()
 
 	printf("digite a matrícula: ");
 	scanf("%d", &new_user.matricula);
+	getchar();
 	printf("digite o rg: ");
 	scanf("%d", &new_user.rg);
 	getchar();
@@ -102,7 +103,7 @@ int cadastrar_usuario()
 	
 	/*Ordena o arquivo*/
 	fseek(fp, 0, SEEK_END);
-	sort_file(fp, num_user, tam_user, cmp_matricula);
+	sort_file(fp, (num_user+1), tam_user, cmp_matricula);
 
 	fclose(fp);
 

@@ -86,7 +86,6 @@ void sort_livro()
 	return;
 }
 
-/*Comparação por código*/
 int cmp_codigo(const void *a, const void *b)
 {
 	Livro aux0 = *((Livro *)a), aux1 = *((Livro *)b);
@@ -98,7 +97,6 @@ int cmp_codigo(const void *a, const void *b)
 		return -1;
 }
 
-/*Comparação por título*/
 int cmp_titulo(const void *a, const void *b)
 {
 	Livro aux0 = *((Livro *)a), aux1 = *((Livro *)b);
@@ -233,9 +231,10 @@ int consultar_livro()
 	printf("Digite o título: ");
 	fgets(aux.titulo, 81, stdin);
 	aux.titulo[strlen(aux.titulo) -1] = '\0';
+	printf("%s\n",aux.titulo);
 
 	/*Procura no arquivo por aquela matricula*/
-	if( (search_file(fp, num_livro, tam_livro, &aux, cmp_codigo, 1, &aux))<0 )
+	if( (search_file(fp, num_livro, tam_livro, &aux, cmp_titulo, 1, &aux))<0 )
 	{
 		printf("\nErro: código não consta na base de dados!.\n");
 		return 1;
@@ -246,7 +245,7 @@ int consultar_livro()
 	printf("título: %s\n", aux.titulo);
 	printf("autores: %s\n", aux.autores);
 	printf("assunto: %s\n", aux.assunto);
-	printf("editora: %s", aux.editora);
+	printf("editora: %s\n", aux.editora);
 	printf("ano: %d\n", aux.ano);
 	printf("edição: %d\n", aux.edicao);
 	printf("status: %s\n", (aux.status == DISP) ? ("DISPONÍVEL") : 

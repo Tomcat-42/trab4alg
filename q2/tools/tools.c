@@ -12,12 +12,12 @@ void sort_file(FILE *fp, size_t n, size_t tam,
 	for(i=0; (i<n-1 && sort); i++)
 	{
 		sort=0;
-		
 		for(j=n-1; j>i; j--)
 		{
 			fseek(fp, (j-1)*tam, SEEK_SET);
 			fread(aux0, tam, 1, fp);
 			fread(aux1, tam, 1, fp);
+
 			/*aux0 é maior que aux1*/
 			if(cmp(aux0, aux1)>0)
 			{
