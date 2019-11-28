@@ -19,8 +19,8 @@
 #endif
 
 /*Tempo de suspensão por atraso, em segundos*/
-#define EMPR_SUSP 30*24*60*60 
-//#define EMPR_SUSP 180
+//#define EMPR_SUSP 30*24*60*60 
+#define EMPR_SUSP 180
 
 /*Estrutura de um empréstimo*/
 typedef struct
@@ -33,21 +33,6 @@ typedef struct
 	struct tm emprestimo, devolucao;
 }Emprestimo;
 
-
-
-/* Vai ordenar os empréstimos por matricula do usuário 
- * e data de emprestimo dos livros */
-void sort_emprestimos();
-
-/*Retorna os empréstimos do usuário*/
-int busca_emprestimo(int matricula, Emprestimo *emp, int n);
-
-/*Retorna os empréstimos do usuário, busca por codigo do livro*/
-int busca_emprestimo_codigo(int codigo, Emprestimo *emp);
-
-
-
-
 /*Compara por matrícula*/
 int cmp_empr_matricula(const void *a, const void *b);
 
@@ -56,6 +41,9 @@ int cmp_empr_matricula_dev(const void *a, const void *b);
 
 /*Compara por codigo do livro*/
 int cmp_empr_codigo(const void *a, const void *b);
+
+/*Compara por título do livro*/
+int cmp_empr_titulo(const void *a, const void *b);
 
 /*Muda o status do usuário de SUSP para NORM ou de NORM para SUSP.Nesse último
  * caso também seta sua data de suspensão para 30 dias a partir de 'hoje' */

@@ -1,111 +1,5 @@
 #include "emprestimos.h"
 
-
-void sort_emprestimo()
-{
-	Emprestimo aux0, aux1;
-	FILE *fp;
-	int i, tam;
-
-	/*Tenta abrir o arquivo*/
-	if( !(fp = fopen(EMPR_FILENAME, "rb+")) ) return;
-	
-	/*Calcula o número de strucs do arquivo*/
-	fseek(fp, 0, SEEK_END);
-	tam = (int)ftell(fp)/(int)sizeof(Emprestimo);
-
-	/*Move o ponteiro para a penúltima struct no arquivo do arquivo*/
-	fseek(fp, -(2*sizeof(Emprestimo)), SEEK_END);
-	for(i=1; i<tam; i++)
-	{
-		fread(&aux0, sizeof(Emprestimo), 1, fp);
-		fread(&aux1, sizeof(Emprestimo), 1, fp);
-		
-		if(aux0.matricula > aux1.matricula)
-		{
-			fseek(fp, -(2*sizeof(Emprestimo)), SEEK_CUR);
-			fwrite(&aux1, sizeof(Emprestimo), 1, fp);
-			fwrite(&aux0, sizeof(Emprestimo), 1, fp);
-		}
-		else if(aux0.matricula == aux1.matricula)
-		{
-			if(difftime(mktime(&aux0.devolucao), mktime(&aux1.devolucao))>0)
-			{
-				fseek(fp, -(2*sizeof(Emprestimo)), SEEK_CUR);
-				fwrite(&aux1, sizeof(Emprestimo), 1, fp);
-				fwrite(&aux0, sizeof(Emprestimo), 1, fp);
-			}
-		}
-		/*A última struct está no local correto*/
-		else
-		{
-			fclose(fp);
-			return;
-		}
-		
-		fseek(fp, -((2+i)*sizeof(Emprestimo)), SEEK_END);
-	}
-	fclose(fp);
-	return;
-}
-
-int busca_emprestimo(int matricula, Emprestimo *emp, int n)
-{
-	Emprestimo aux_busca;
-	FILE *fp;
-	int i=0, j;
-
-	if( !(fp = fopen(EMPR_FILENAME, "rb")) )
-		return -1;
-
-	while( !feof(fp) )
-	{
-		fread(&aux_busca, sizeof(Emprestimo), 1, fp);
-		if(!feof(fp) && (matricula == aux_busca.matricula))
-		{
-			for(j=0; j<n; j++)
-			{
-				*(emp+j) = aux_busca;
-				fread(&aux_busca, sizeof(Emprestimo), 1, fp);
-			}
-
-			fclose(fp);
-			return i;
-		}
-		else
-			i++;
-	}
-	fclose(fp);
-	return -1;
-}
-
-int busca_emprestimo_codigo(int codigo, Emprestimo *emp)
-{	
-	Emprestimo aux_busca;
-	FILE *fp;
-	int i=0;
-
-	if( !(fp = fopen(EMPR_FILENAME, "rb")) )
-		return -1;
-
-	while( !feof(fp) )
-	{
-		fread(&aux_busca, sizeof(Emprestimo), 1, fp);
-		if(!feof(fp) && (codigo == aux_busca.codigo))
-		{
-			*(emp) = aux_busca;
-			return i;
-		}
-		else
-			i++;
-	}
-	fclose(fp);
-	return -1;
-}
-
-
-
-
 int cmp_empr_matricula(const void *a, const void *b)
 {
 	Emprestimo aux0 = *((Emprestimo *)a), aux1 = *((Emprestimo *)b);
@@ -139,6 +33,13 @@ int cmp_empr_codigo(const void *a, const void *b)
 		return 0;
 	else
 		return -1;
+}
+
+int cmp_empr_titulo(const void *a, const void *b)
+{
+	Emprestimo aux0 = *((Emprestimo *)a), aux1 = *((Emprestimo *)b);
+	
+	return(strcmp(aux0.titulo, aux1.titulo));
 }
 
 
@@ -294,7 +195,7 @@ int emprestar()
 	if(usuario.status == SUSP && 
 	   difftime(agr, mktime(&usuario.term_susp))<0)
 	{
-		printf("Empréstimo não pode ser realizado: Usuário suspenso até %02d/%02d/%02d.\n",
+		printf("\nEmpréstimo não pode ser realizado: Usuário suspenso até %02d/%02d/%02d.\n",
 				usuario.term_susp.tm_mday,
 				usuario.term_susp.tm_mon+1,
 				usuario.term_susp.tm_year+1900);
@@ -330,12 +231,11 @@ int emprestar()
 	{
 		for(i=usuario.num_emprest-1; i>=0; i--)
 		{
-			printf("%s\n", asctime(&emp[i].devolucao));
 			/*O livro atrasado mais recente*/
 			if(difftime(agr, mktime(&emp[i].devolucao))>0)
 			{
 				mudar_status_usuario(fp_usuario, usuario.matricula, emp[i].devolucao);
-				printf("Empréstimo não pode ser realizado: Volume em atraso encontrado.\n");
+				printf("\nEmpréstimo não pode ser realizado: Volume em atraso encontrado.\n");
 				return 1;
 			}
 		}
@@ -349,7 +249,7 @@ int emprestar()
 	if( (pos_livro = search_file(fp_livro, num_livro, tam_livro, &livro,
 					cmp_codigo, 1, &livro))<0)
 	{
-		printf("Empréstimo não pode ser realizado: Volume inexistente.\n");
+		printf("\nEmpréstimo não pode ser realizado: Volume inexistente.\n");
 
 		fclose(fp_usuario);
 		fclose(fp_livro);
@@ -359,7 +259,7 @@ int emprestar()
 	}
 	else if(livro.status == MANU || livro.status == EMPR)
 	{
-		printf("Empréstimo não pode ser realizado: Volume indisponível no momento.\n");
+		printf("\nEmpréstimo não pode ser realizado: Volume indisponível no momento.\n");
 		
 		fclose(fp_usuario);
 		fclose(fp_livro);
@@ -400,8 +300,6 @@ int emprestar()
 	fseek(fp_livro, pos_livro*tam_livro, SEEK_SET);
 	fwrite(&livro, tam_livro, 1, fp_livro);
 	
-	printf("%lu\n",num_empr);
-
 	/*Ordena o arquivo*/
 	sort_file(fp_empr, (num_empr+1), tam_empr, cmp_empr_matricula_dev);
 	
@@ -416,7 +314,7 @@ int devolver()
 {
 	Usuario usuario;
 	Livro livro;
-	Emprestimo empr, empr_aux;
+	Emprestimo empr;
 	int pos_usuario, pos_livro;
 	time_t agr, aux;
 	//struct tm hoje;
@@ -500,17 +398,17 @@ int devolver()
 	
 	
 	/*Grava as alterações e apaga o empréstimo*/
-	fseek(fp_usuario, pos_usuario*sizeof(Usuario), SEEK_SET);
-	fwrite(&usuario, sizeof(Usuario), 1, fp_usuario);
+	fseek(fp_usuario, pos_usuario*tam_user, SEEK_SET);
+	fwrite(&usuario, tam_user, 1, fp_usuario);
 
-	fseek(fp_livro, pos_livro*sizeof(Livro), SEEK_SET);
-	fwrite(&livro, sizeof(Livro), 1, fp_livro);
+	fseek(fp_livro, pos_livro*tam_livro, SEEK_SET);
+	fwrite(&livro, tam_livro, 1, fp_livro);
 	
 	while(!feof(fp_empr))
 	{
-		fread(&empr, sizeof(Emprestimo), 1, fp_empr);
+		fread(&empr, tam_empr, 1, fp_empr);
 		if(!feof(fp_empr) && empr.codigo != livro.codigo)
-			fwrite(&empr, sizeof(Emprestimo), 1, fp_tmp);
+			fwrite(&empr, tam_empr, 1, fp_tmp);
 
 	}
 	
@@ -528,10 +426,11 @@ int relatorio_emprestimo()
 	/*variável que armazenará cada empréstimo na busca*/
 	Emprestimo aux;
 	char filename[51], filepath[51];
-	FILE *fp,*stream;
+	FILE *fp,*stream, *fp_tmp ;
 	time_t agr;
 	struct tm tempo;
 	int menu, i;
+	size_t num_empr, tam_empr;
 	
 	/*Tenta abrir o arquivo*/
 	if( !(fp = fopen(EMPR_FILENAME, "rb") ) )
@@ -539,7 +438,24 @@ int relatorio_emprestimo()
 		printf("\nErro: nenhum empréstimo consta na base de dados!\n");
 		return 1;
 	}
+	fseek(fp, 0, SEEK_END);	
+	tam_empr = sizeof(Emprestimo);
+	num_empr = ftell(fp) / tam_empr;
 	
+	/*Cria um arquivo temporário*/
+	if( !(fp_tmp = tmpfile()) )
+		return 1;
+
+	/*Copia todas as structs do arquivo original para o temporário*/
+	fseek(fp, 0 , SEEK_SET);
+	while(!feof(fp) && fread(&aux, tam_empr, 1, fp))
+		fwrite(&aux, tam_empr, 1, fp_tmp);
+	
+	/*Ordena o arquivo temporário por título*/
+	fclose(fp);
+	sort_file(fp_tmp, num_empr, tam_empr, cmp_empr_titulo);	
+
+	/*Printa o relatório ordenado por título*/
 	time(&agr);
 	tempo = *localtime(&agr);
 	printf("1)Tela\n2)Arquivo\n\n>>> ");
@@ -565,40 +481,42 @@ int relatorio_emprestimo()
 		if( !(stream = fopen(filepath, "w") ) )
 		{
 			fclose(fp);
+			fclose(fp_tmp);
 			return 1;
 		}
 	}
 	else
 	{
 		fclose(fp);
+		fclose(fp_tmp);
 		return 1;
 	}
 
-	
-	while(!feof(fp))
+	fseek(fp_tmp, 0, SEEK_SET);		
+	while(!feof(fp_tmp))
 	{
-		fprintf(stream, "Relatório de Livros Emprestados\t\t\t      Data: %02d/%02d/%02d @ %02d:%02d\n\n",
+		fprintf(stream, "Relatório de Livros Emprestados\t\t\t   Data: %02d/%02d/%02d @ %02d:%02d\n\n",
 				tempo.tm_mday,
 				tempo.tm_mon+1, 
 				tempo.tm_year+1900,
 				tempo.tm_hour,
 				tempo.tm_min);
 		
-		fprintf(stream, " %-20s | %-7s | %-20s | %-10s | %-10s\n",
+		fprintf(stream, " %-19s | %-6s | %-19s | %-9s | %-9s\n",
 				"Título",
 				"Código",
 				"Usuário",
 				"Devolução ",
 				"Telefone");
-		for(i=0; i<78; i++) fputc('-', stream);
+		for(i=0; i<75; i++) fputc('-', stream);
 		fprintf(stream, "\n");
 
-		for(i=0; i<45 && !(feof(fp)); i++)
+		for(i=0; i<45 && !(feof(fp_tmp)); i++)
 		{
-			fread(&aux, sizeof(Emprestimo), 1, fp);
-			if(!feof(fp))
+			fread(&aux, tam_empr, 1, fp_tmp);
+			if(!feof(fp_tmp))
 			{
-				fprintf(stream, " %-20s| %-7d| %-20s| %02d/%02d/%04d | %-8d\n",
+				fprintf(stream, " %-19.19s | %-6.7d | %-19.19s | %02d/%02d/%04d | %-8.9d\n",
 						aux.titulo,
 						aux.codigo,
 						aux.nome,
@@ -608,10 +526,10 @@ int relatorio_emprestimo()
 						aux.fone_red);
 			}
 		}
-		for(i=0; i<78; i++) fputc('-', stream);
+		for(i=0; i<75; i++) fputc('-', stream);
 		fprintf(stream, "\n\f");
 	}
-	fclose(fp);
+	fclose(fp_tmp);
 	if(menu == 2) fclose(stream);
 	return 0;
 }
