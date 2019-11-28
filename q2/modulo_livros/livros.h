@@ -33,13 +33,6 @@ typedef struct
 	int status;
 }Livro;
 
-
-int busca_generica_livro(int codigo, Livro *livro);
-void sort_livro();
-
-/*vai buscar o livro e gravar na struct *livro, além disso vai retornar a posição dele no arquivo*/
-/*Pega a última entrada e insere no local correto*/
-
 /*Comparação por código*/
 int cmp_codigo(const void *a, const void *b);
 

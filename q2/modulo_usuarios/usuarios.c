@@ -60,7 +60,7 @@ int cadastrar_usuario()
 	printf("digite o endereço: ");
 	fgets(new_user.endereco, 72, stdin);
 	new_user.endereco[strlen(new_user.endereco) -1] = '\0';
-	printf("digite a data de nascimento(DD/MM/AA): ");
+	printf("digite a data de nascimento(DD/MM/AAAA): ");
 	scanf("%d/%d/%d", &new_user.nasc.tm_mday, &mes, &ano);
 	new_user.nasc.tm_mon = mes-1;
 	new_user.nasc.tm_year = ano-1900;
@@ -71,10 +71,10 @@ int cadastrar_usuario()
 	printf("digite o bairro: ");
 	fgets(new_user.bairro, 32, stdin);
 	new_user.bairro[strlen(new_user.bairro) -1] = '\0';
-	printf("digite o telefone residencial(9 dígitos): ");
+	printf("digite o telefone residencial(8 dígitos): ");
 	scanf("%d", &new_user.fone_red);
 	getchar();
-	printf("digite o telefone móvel(9 dígitos): ");
+	printf("digite o telefone móvel(8 dígitos): ");
 	scanf("%d", &new_user.fone_cel);
 	getchar();
 	time(&agora);
