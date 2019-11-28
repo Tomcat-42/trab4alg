@@ -404,6 +404,7 @@ int devolver()
 	fseek(fp_livro, pos_livro*tam_livro, SEEK_SET);
 	fwrite(&livro, tam_livro, 1, fp_livro);
 	
+	fseek(fp_empr, 0, SEEK_SET);
 	while(!feof(fp_empr))
 	{
 		fread(&empr, tam_empr, 1, fp_empr);
@@ -491,7 +492,8 @@ int relatorio_emprestimo()
 		fclose(fp_tmp);
 		return 1;
 	}
-
+	
+	system("clear");
 	fseek(fp_tmp, 0, SEEK_SET);		
 	while(!feof(fp_tmp))
 	{
@@ -502,13 +504,13 @@ int relatorio_emprestimo()
 				tempo.tm_hour,
 				tempo.tm_min);
 		
-		fprintf(stream, " %-19s | %-6s | %-19s | %-9s | %-9s\n",
+		fprintf(stream, " %-19.19s | %-6.7s  | %-19.19s  | %-9s | %-8.9s\n",
 				"Título",
 				"Código",
 				"Usuário",
 				"Devolução ",
 				"Telefone");
-		for(i=0; i<75; i++) fputc('-', stream);
+		for(i=0; i<77; i++) fputc('-', stream);
 		fprintf(stream, "\n");
 
 		for(i=0; i<45 && !(feof(fp_tmp)); i++)
@@ -516,7 +518,7 @@ int relatorio_emprestimo()
 			fread(&aux, tam_empr, 1, fp_tmp);
 			if(!feof(fp_tmp))
 			{
-				fprintf(stream, " %-19.19s | %-6.7d | %-19.19s | %02d/%02d/%04d | %-8.9d\n",
+				fprintf(stream, " %-19.19s | %-7.7d | %-19.19s | %02d/%02d/%04d | %-8.9d\n",
 						aux.titulo,
 						aux.codigo,
 						aux.nome,
@@ -526,7 +528,7 @@ int relatorio_emprestimo()
 						aux.fone_red);
 			}
 		}
-		for(i=0; i<75; i++) fputc('-', stream);
+		for(i=0; i<77; i++) fputc('-', stream);
 		fprintf(stream, "\n\f");
 	}
 	fclose(fp_tmp);

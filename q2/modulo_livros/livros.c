@@ -269,6 +269,8 @@ int relatorio_livro()
 		fclose(fp);
 		return 1;
 	}
+	
+	system("clear");
 
 	fprintf(stream, "Relatório de livros cadastrados:\nData: %02d/%02d/%02d @ %02d:%02d\n\n",
 			tempo.tm_mday,

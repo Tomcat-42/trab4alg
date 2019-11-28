@@ -328,6 +328,8 @@ int relatorio_usuario()
 		fclose(fp);
 		return 1;
 	}
+	
+	system("clear");
 
 	fprintf(stream, "Relatório de usuários cadastrados:\nData: %02d/%02d/%02d @ %02d:%02d\n\n",
 			tempo.tm_mday,
